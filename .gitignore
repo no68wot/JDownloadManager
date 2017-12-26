@@ -1,0 +1,10 @@
+/bin/
+# ignore directories
+/bin/
+/.settings/
+# ignore files
+/bin/*
+.classpath
+.project
+# except this file
+!.gitignore
