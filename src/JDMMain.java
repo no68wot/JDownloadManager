@@ -4,17 +4,51 @@
  */
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 public class JDMMain {
 
+	private static void chooseFile () {
+		JFrame frame = new JFrame();
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Textdateien", "txt");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(frame);
+		if ( returnVal == JFileChooser.APPROVE_OPTION ) {
+			File file = chooser.getSelectedFile();
+			System.out.println("file.getname() : " + file.getName());
+			System.out.println("file.getPath() : " + file.getPath());
+			System.out.println("file.getAbsolutePath() : " + file.getAbsolutePath());
+			try {
+				System.out.println("file.getCanonicalPath() : " + file.getCanonicalPath());
+			} 
+			catch ( IOException e ) {
+				e.printStackTrace();
+			}
+			System.out.println("file.getParent() : " + file.getParent());
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @param strURL
+	 * @return
+	 */
 	protected static boolean downloadFromURL (String strURL) {
-		boolean b = false;
+		boolean status = false;
 		BufferedInputStream in = null;
 		FileOutputStream out = null;
 		try {
@@ -35,7 +69,7 @@ public class JDMMain {
 			in.close();
 			out.flush();
 			out.close();
-			b = true;
+			status = true;
 		}
 		catch ( MalformedURLException e ) {
 			e.printStackTrace();
@@ -43,33 +77,78 @@ public class JDMMain {
 		catch ( IOException e ) { 
 			e.printStackTrace();
 		}
-		return b;
+		return status;
 	}
+	
 	
 	/**
 	 * Main program
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		final String URL_FILE = "E:/urls.txt";		
-		BufferedReader reader = null;		
-		try {
-			/* Read from source file line-by-line */
-			reader = new BufferedReader(new FileReader(URL_FILE));
-			String line = null;
-			if ( reader.ready() ) {				
-				while ( (line = reader.readLine()) != null ) {
-					if ( downloadFromURL(line) ) {
-						System.out.println("(100%) " + line);
-					}
+//		chooseFile();
+//		final String URL_FILE = "E:/urls.txt";		
+//		BufferedReader reader = null;		
+//		try {
+//			/* Read from source file line-by-line */
+//			reader = new BufferedReader(new FileReader(URL_FILE));
+//			String line = null;
+//			if ( reader.ready() ) {				
+//				while ( (line = reader.readLine()) != null ) {
+//					if ( downloadFromURL(line) ) {
+//						System.out.println("(100%) " + line);
+//					}
+//				}
+//			}
+//		} 
+//		catch ( FileNotFoundException e ) {
+//			e.printStackTrace();
+//		}
+//		catch ( IOException e ) {
+//			e.printStackTrace();
+//		}
+		
+		JFrame frame = new JFrame("JDM - Java Download Manager");
+		JDMView view = new JDMView();
+		frame.addWindowListener(
+			new WindowListener() {
+				@Override
+				public void windowActivated(WindowEvent arg0) {
+					// TODO Auto-generated method stub					
 				}
-			}
-		} 
-		catch ( FileNotFoundException e ) {
-			e.printStackTrace();
-		}
-		catch ( IOException e ) {
-			e.printStackTrace();
-		}
+
+				@Override
+				public void windowClosed(WindowEvent arg0) {
+					// TODO Auto-generated method stub					
+				}
+
+				@Override
+				public void windowClosing(WindowEvent arg0) {
+					System.exit(0);					
+				}
+
+				@Override
+				public void windowDeactivated(WindowEvent arg0) {
+					// TODO Auto-generated method stub					
+				}
+
+				@Override
+				public void windowDeiconified(WindowEvent arg0) {
+					// TODO Auto-generated method stub					
+				}
+
+				@Override
+				public void windowIconified(WindowEvent arg0) {
+					// TODO Auto-generated method stub					
+				}
+
+				@Override
+				public void windowOpened(WindowEvent arg0) {
+					// TODO Auto-generated method stub					
+				}				
+			});
+		frame.getContentPane().add(view, "Center");
+		frame.setSize(view.getPreferredSize());
+		frame.setVisible(true);
 	}
 }

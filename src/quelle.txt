@@ -3,3 +3,6 @@ How to download and save a file from Internet using Java?
   
 How BufferedInputStream makes the read operation faster?
   https://stackoverflow.com/questions/17473863/how-bufferedinputstream-makes-the-read-operation-faster
+  
+Select a directory with a JFileChooser
+  http://www.rgagnon.com/javadetails/java-0370.html
