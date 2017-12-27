@@ -108,47 +108,7 @@ public class JDMMain {
 //			e.printStackTrace();
 //		}
 		
-		JFrame frame = new JFrame("JDM - Java Download Manager");
-		JDMView view = new JDMView();
-		frame.addWindowListener(
-			new WindowListener() {
-				@Override
-				public void windowActivated(WindowEvent arg0) {
-					// TODO Auto-generated method stub					
-				}
+		//frame.getContentPane().add(view, "Center");
 
-				@Override
-				public void windowClosed(WindowEvent arg0) {
-					// TODO Auto-generated method stub					
-				}
-
-				@Override
-				public void windowClosing(WindowEvent arg0) {
-					System.exit(0);					
-				}
-
-				@Override
-				public void windowDeactivated(WindowEvent arg0) {
-					// TODO Auto-generated method stub					
-				}
-
-				@Override
-				public void windowDeiconified(WindowEvent arg0) {
-					// TODO Auto-generated method stub					
-				}
-
-				@Override
-				public void windowIconified(WindowEvent arg0) {
-					// TODO Auto-generated method stub					
-				}
-
-				@Override
-				public void windowOpened(WindowEvent arg0) {
-					// TODO Auto-generated method stub					
-				}				
-			});
-		frame.getContentPane().add(view, "Center");
-		frame.setSize(view.getPreferredSize());
-		frame.setVisible(true);
 	}
 }
